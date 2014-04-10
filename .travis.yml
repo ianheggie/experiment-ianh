@@ -11,7 +11,7 @@ before_install:
 bundler_args: --binstubs
 script: 
 - bin/rake build
-- . test/setup_ubuntu.bash ; rvmsudo_secure_path=1 rvmsudo `env | egrep '^TRAVIS|PING2|UNREACHABLE'` bin/rake test
+- . test/setup_ubuntu.bash ; bin/rake test
 env:
   - LAP=1
   - LAP=2
