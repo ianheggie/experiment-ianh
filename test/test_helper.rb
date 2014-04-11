@@ -130,71 +130,71 @@ module TestHelper
   end
 
   def check_good_service_check(options={})
-    define_method "test_pinging_a_good_service_returns_true_and_sets_attributes_accordingly" do
-      assert_respond_to(@ping, :service_check)
-      @ping.service_check = true
-      assert_true(@ping.ping?(LOCALHOST_IP, options), 'ping?(LOCALHOST_IP) should be true, exception = %s, response=%s' % [@ping.exception, @ping.response])
-      assert_true(@ping.success?, 'success? should be true')
-      ['duration', 'response', 'success'].flatten.each do |method|
-        assert_not_nil(@ping.send(method), "#{method} should be set on success") if method
-      end
-      ['exception'].flatten.each do |method|
-        assert_nil(@ping.send(method), "#{method} should be nil on success") if method
-      end
-      assert_kind_of(Float, @ping.duration, 'duration should be a float on success')
-    end
+    # define_method "test_pinging_a_good_service_returns_true_and_sets_attributes_accordingly" do
+    #   assert_respond_to(@ping, :service_check)
+    #   @ping.service_check = true
+    #   assert_true(@ping.ping?(LOCALHOST_IP, options), 'ping?(LOCALHOST_IP) should be true, exception = %s, response=%s' % [@ping.exception, @ping.response])
+    #   assert_true(@ping.success?, 'success? should be true')
+    #   ['duration', 'response', 'success'].flatten.each do |method|
+    #     assert_not_nil(@ping.send(method), "#{method} should be set on success") if method
+    #   end
+    #   ['exception'].flatten.each do |method|
+    #     assert_nil(@ping.send(method), "#{method} should be nil on success") if method
+    #   end
+    #   assert_kind_of(Float, @ping.duration, 'duration should be a float on success')
+    # end
   end
 
   def check_bad_service_check(options={})
-    klass = self
-    define_method "test_pinging_a_bad_service_returns_false_and_sets_attributes_accordingly" do
-      assert_respond_to(@ping, :service_check)
-      @ping.service_check = true
-      @ping.timeout = 2
-      @ping.port = klass.blackhole_port
-      started = Time.now
-      @result = @ping.ping?(LOCALHOST_IP)
-      @duration = Time.now - started
-      assert_false(@result, "ping?(bad_service) should be false, exception = #{@ping.exception}, response = #{@ping.response}")
-      assert_false(@ping.success?)
-      ['exception', 'success'].flatten.each do |method|
-        assert_not_nil(@ping.send(method), "#{method} should be set on failure") if method
-      end
-      ['duration'].flatten.each do |method|
-        assert_nil(@ping.send(method), "#{method} should be nil on failure") if method
-      end
-      assert_true(@duration < 3.9, "pinging bad_service should take < 3.9 seconds, actually took #{@duration}")
-    end
+    # klass = self
+    # define_method "test_pinging_a_bad_service_returns_false_and_sets_attributes_accordingly" do
+    #   assert_respond_to(@ping, :service_check)
+    #   @ping.service_check = true
+    #   @ping.timeout = 2
+    #   @ping.port = klass.blackhole_port
+    #   started = Time.now
+    #   @result = @ping.ping?(LOCALHOST_IP)
+    #   @duration = Time.now - started
+    #   assert_false(@result, "ping?(bad_service) should be false, exception = #{@ping.exception}, response = #{@ping.response}")
+    #   assert_false(@ping.success?)
+    #   ['exception', 'success'].flatten.each do |method|
+    #     assert_not_nil(@ping.send(method), "#{method} should be set on failure") if method
+    #   end
+    #   ['duration'].flatten.each do |method|
+    #     assert_nil(@ping.send(method), "#{method} should be nil on failure") if method
+    #   end
+    #   assert_true(@duration < 3.9, "pinging bad_service should take < 3.9 seconds, actually took #{@duration}")
+    # end
   end
 
-  def ping_hosts_sequentially(hosts, klass)
-    hosts.collect do |ip|
-      p = klass.new(:host => ip, :timeout => 2)
-      [ip, p.ping?(ip)]
-    end
-  end
-
-  def ping_hosts_in_parallel(hosts, klass)
-    threads = hosts.collect do |ip|
-      Thread.new(ip) do |thread_ip|
-        p = klass.new(:host => thread_ip, :timeout => 2)
-        [thread_ip, p.ping?(thread_ip)]
-      end
-    end
-    threads.collect do |t|
-      t.value
-    end
-  end
+  # def ping_hosts_sequentially(hosts, klass)
+  #   hosts.collect do |ip|
+  #     p = klass.new(:host => ip, :timeout => 2)
+  #     [ip, p.ping?(ip)]
+  #   end
+  # end
+  #
+  # def ping_hosts_in_parallel(hosts, klass)
+  #   threads = hosts.collect do |ip|
+  #     Thread.new(ip) do |thread_ip|
+  #       p = klass.new(:host => thread_ip, :timeout => 2)
+  #       [thread_ip, p.ping?(thread_ip)]
+  #     end
+  #   end
+  #   threads.collect do |t|
+  #     t.value
+  #   end
+  # end
 
   def check_thread_safety
-    klass = self
-    define_method 'test_multiple_threads_return_same_value_as_sequential_checks' do
-      hosts = ['8.8.4.4', '8.8.9.9', '127.0.0.1', '8.8.8.8', '8.8.8.9']
-      sequentially = klass.ping_hosts_sequentially(hosts, @ping.class)
-      in_parallel = klass.ping_hosts_in_parallel(hosts, @ping.class)
-      assert_equal(sequentially, in_parallel, "#{@ping.class} Should work the same in threads")
-      assert_equal(hosts.size, sequentially.size, "#{@ping.class} sequential should have results for all the hosts")
-    end
+    # klass = self
+    # define_method 'test_multiple_threads_return_same_value_as_sequential_checks' do
+    #   hosts = ['8.8.4.4', '8.8.9.9', '127.0.0.1', '8.8.8.8', '8.8.8.9']
+    #   sequentially = klass.ping_hosts_sequentially(hosts, @ping.class)
+    #   in_parallel = klass.ping_hosts_in_parallel(hosts, @ping.class)
+    #   assert_equal(sequentially, in_parallel, "#{@ping.class} Should work the same in threads")
+    #   assert_equal(hosts.size, sequentially.size, "#{@ping.class} sequential should have results for all the hosts")
+    # end
   end
 
 
