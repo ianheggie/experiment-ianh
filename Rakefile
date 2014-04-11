@@ -24,7 +24,7 @@ Rake::TestTask.new do |t|
 end
 
 namespace 'test' do
-  %w{external http icmp tcp udp wmi base}.each do |protocol|
+  %w{external http icmp tcp}.each do |protocol|
     Rake::TestTask.new(protocol) do |t|
        t.warning = true
        t.verbose = true
