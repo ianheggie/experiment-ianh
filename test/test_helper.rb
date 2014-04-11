@@ -94,17 +94,17 @@ module TestHelper
   end
 
   def check_good_host_behaviour(should_be_set = [], should_be_nil = [])
-    define_method "test_pinging_a_good_host_returns_true_and_sets_attributes_accordingly" do
-      assert_true(@ping.ping?(LOCALHOST_IP), 'ping?(LOCALHOST_IP) should be true, exception = %s, response=%s' % [@ping.exception, @ping.response])
-      assert_true(@ping.success?, 'success? should be true')
-      ['duration', 'response', 'success', should_be_set].flatten.each do |method|
-        assert_not_nil(@ping.send(method), "#{method} should be set on success") if method
-      end
-      ['exception', should_be_nil].flatten.each do |method|
-        assert_nil(@ping.send(method), "#{method} should be nil on success") if method
-      end
-      assert_kind_of(Float, @ping.duration, 'duration should be a float on success')
-    end
+    # define_method "test_pinging_a_good_host_returns_true_and_sets_attributes_accordingly" do
+    #   assert_true(@ping.ping?(LOCALHOST_IP), 'ping?(LOCALHOST_IP) should be true, exception = %s, response=%s' % [@ping.exception, @ping.response])
+    #   assert_true(@ping.success?, 'success? should be true')
+    #   ['duration', 'response', 'success', should_be_set].flatten.each do |method|
+    #     assert_not_nil(@ping.send(method), "#{method} should be set on success") if method
+    #   end
+    #   ['exception', should_be_nil].flatten.each do |method|
+    #     assert_nil(@ping.send(method), "#{method} should be nil on success") if method
+    #   end
+    #   assert_kind_of(Float, @ping.duration, 'duration should be a float on success')
+    # end
   end
 
   def check_bad_hosts_behaviour(bad_host_name_list, should_be_set = [], should_be_nil = [])
