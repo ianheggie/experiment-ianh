@@ -29,68 +29,68 @@ module TestHelper
 
   def check_ping_arguments
 
-    %w{ping ping?}.each do |method|
-
-      define_method "test_#{method}_without_arguments_or_default_host_raises_exception" do
-        #noinspection RubyArgCount
-        assert_raise(ArgumentError) { @ping.ping }
-      end
-
-      define_method "test_#{method}_without_arguments_but_with_default_host" do
-        assert_nothing_raised { @ping_with_host.ping }
-      end
-
-      define_method "test_#{method}_accepts_a_hostname" do
-        assert_nothing_raised { @ping.ping(LOCALHOST_IP) }
-      end
-    end
+    # %w{ping ping?}.each do |method|
+    #
+    #   define_method "test_#{method}_without_arguments_or_default_host_raises_exception" do
+    #     #noinspection RubyArgCount
+    #     assert_raise(ArgumentError) { @ping.ping }
+    #   end
+    #
+    #   define_method "test_#{method}_without_arguments_but_with_default_host" do
+    #     assert_nothing_raised { @ping_with_host.ping }
+    #   end
+    #
+    #   define_method "test_#{method}_accepts_a_hostname" do
+    #     assert_nothing_raised { @ping.ping(LOCALHOST_IP) }
+    #   end
+    # end
 
   end
 
   def check_class_methods(*methods)
     # Class methods
-    %w{not_available_message available?}.concat(methods).each do |method|
-      define_method "test_has_#{method}_class_method" do
-        assert_respond_to(Net::Ping2::Base, method)
-      end
-    end
+    # %w{not_available_message available?}.concat(methods).each do |method|
+    #   define_method "test_has_#{method}_class_method" do
+    #     assert_respond_to(Net::Ping2::Base, method)
+    #   end
+    # end
   end
 
   def check_attr_readers(*methods)
-    %w{exception duration ping ping? response warning success success?}.concat(methods).each do |method|
-      define_method "test_has_#{method}_method" do
-        assert_respond_to(@ping, method)
-      end
-    end
+    # %w{exception duration ping ping? response warning success success?}.concat(methods).each do |method|
+    #   define_method "test_has_#{method}_method" do
+    #     assert_respond_to(@ping, method)
+    #   end
+    # end
   end
 
   def check_attr_accessors(*methods)
-    methods = %w{timeout}.concat(methods)
-    methods.each do |method|
-      define_method "test_has_#{method}_method" do
-        assert_respond_to(@ping, method)
-      end
-      setter = "#{method}="
-      define_method "test_has_working_#{setter}_method" do
-        assert_respond_to(@ping, setter)
-        @ping.send(setter, 42)
-        assert_equal(42, @ping.send(method))
-      end
-    end
+    # methods = %w{timeout}.concat(methods)
+    # methods.each do |method|
+    #   define_method "test_has_#{method}_method" do
+    #     assert_respond_to(@ping, method)
+    #   end
+    #   setter = "#{method}="
+    #   define_method "test_has_working_#{setter}_method" do
+    #     assert_respond_to(@ping, setter)
+    #     @ping.send(setter, 42)
+    #     assert_equal(42, @ping.send(method))
+    #   end
+    # end
   end
 
   def check_defaults(method_defaults = {})
-    {:duration => nil,
-     :exception => nil,
-     :response => nil,
-     :warning => nil
-    }.merge(method_defaults).each do |method, value|
-      if method
-        define_method "test_#{method}_defaults_to_#{value.inspect}" do
-          assert_equal(value, @ping.send(method), "#{method} default")
-        end
-      end
-    end
+    # {:duration => nil,
+    #  :exception => nil,
+    #  :response => nil,
+    #  :warning => nil
+    # }.merge(method_defaults).each do |method, value|
+    #   if method
+    #     define_method "test_#{method}_defaults_to_#{value.inspect}" do
+    #       assert_equal(value, @ping.send(method), "#{method} default")
+    #     end
+    #   end
+    # end
   end
 
   def check_good_host_behaviour(should_be_set = [], should_be_nil = [])
