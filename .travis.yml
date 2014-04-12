@@ -4,9 +4,9 @@ notifications:
     on_success: change
     on_failure: always
 before_install:
-- gem update --system $RUBYGEMS_VERSION
+#- gem update --system $RUBYGEMS_VERSION
 - gem --version
-- gem install bundler
+#- gem install bundler
 - bundle --version
 bundler_args: --binstubs
 script: 
