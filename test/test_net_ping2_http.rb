@@ -64,52 +64,52 @@ class TestNetPing2HTTP < Test::Unit::TestCase
 
     check_thread_safety
 
-    test 'redirect_limit defaults to 5' do
-      assert_equal(5, @ping.redirect_limit)
-    end
-
-    test 'redirects succeed by default' do
-      res = @ping.ping?(@redirect)
-      assert_true(res, "ping returned #{res}, exception = #{@ping.exception.inspect}")
-    end
-
-    test 'redirect fail if follow_redirect is set to false' do
-      @ping.follow_redirect = false
-      assert_false(@ping.ping?(@redirect))
-    end
-
-    test 'ping with redirect limit set to zero fails' do
-      @ping.redirect_limit = 0
-      assert_false(@ping.ping?(@redirect))
-      assert_equal('Redirect limit exceeded', @ping.exception)
-    end
-
-    test 'ping with get_request=true option' do
-      @ping.get_request = true
-      res = @ping.ping?(@uri)
-      assert_true(res, 'exception = %s' % @ping.exception)
-    end
-
-    test 'ping with http proxy and get_request=true' do
-      ENV['http_proxy'] = 'http://proxymoxie:3128'
-      @ping.get_request = true
-      assert_true(@ping.ping?(@uri))
-      assert_true(@ping.proxied)
-    end
-
-    test 'ping with https proxy and get_request=true' do
-      ENV['http_proxy'] = 'https://proxymoxie:3128'
-      @ping.get_request = true
-      assert_true(@ping.ping?(@uri))
-      assert_true(@ping.proxied?)
-    end
-
-    test 'ping with no_proxy and get_request=true' do
-      ENV['no_proxy'] = 'google.com'
-      @ping.get_request = true
-      assert_true(@ping.ping?(@uri))
-      assert_false(@ping.proxied)
-    end
+    # test 'redirect_limit defaults to 5' do
+    #   assert_equal(5, @ping.redirect_limit)
+    # end
+    #
+    # test 'redirects succeed by default' do
+    #   res = @ping.ping?(@redirect)
+    #   assert_true(res, "ping returned #{res}, exception = #{@ping.exception.inspect}")
+    # end
+    #
+    # test 'redirect fail if follow_redirect is set to false' do
+    #   @ping.follow_redirect = false
+    #   assert_false(@ping.ping?(@redirect))
+    # end
+    #
+    # test 'ping with redirect limit set to zero fails' do
+    #   @ping.redirect_limit = 0
+    #   assert_false(@ping.ping?(@redirect))
+    #   assert_equal('Redirect limit exceeded', @ping.exception)
+    # end
+    #
+    # test 'ping with get_request=true option' do
+    #   @ping.get_request = true
+    #   res = @ping.ping?(@uri)
+    #   assert_true(res, 'exception = %s' % @ping.exception)
+    # end
+    #
+    # test 'ping with http proxy and get_request=true' do
+    #   ENV['http_proxy'] = 'http://proxymoxie:3128'
+    #   @ping.get_request = true
+    #   assert_true(@ping.ping?(@uri))
+    #   assert_true(@ping.proxied)
+    # end
+    #
+    # test 'ping with https proxy and get_request=true' do
+    #   ENV['http_proxy'] = 'https://proxymoxie:3128'
+    #   @ping.get_request = true
+    #   assert_true(@ping.ping?(@uri))
+    #   assert_true(@ping.proxied?)
+    # end
+    #
+    # test 'ping with no_proxy and get_request=true' do
+    #   ENV['no_proxy'] = 'google.com'
+    #   @ping.get_request = true
+    #   assert_true(@ping.ping?(@uri))
+    #   assert_false(@ping.proxied)
+    # end
 
 =begin
 
