@@ -19,28 +19,27 @@ class TestNetPing2HTTP < Test::Unit::TestCase
 
   def test_ping()
     # See https://bugs.ruby-lang.org/issues/8645
-    url = 'http://144.140.108.23:1001'
-    uri = URI.parse(url)
+    port = 1001
+    host = '144.140.108.23'
+    #uri = URI.parse(url)
 
     # A port provided here overrides anything provided in constructor
-    port = 1001
 
-    timeout = 2
-    uri_path = uri.path.empty? ? '/' : uri.path
-    headers = {}
-    headers["User-Agent"] = 'net-ping2'
+    timeout = 1
+    #headers = {}
+    #headers["User-Agent"] = 'net-ping2'
     begin
-      http = Net::HTTP.new(uri.host, port)
-      http.read_timeout = timeout
+      http = Net::HTTP.new(host, port)
+      #http.read_timeout = timeout
       http.open_timeout = timeout
-      request = Net::HTTP::Head.new(uri_path)
+      request = Net::HTTP::Head.new('/')
       http_response = Timeout.timeout(timeout) do
         http.start { |h| h.request(request) }
       end
-    rescue Exception => err
-      @exception = err.message
-    ensure
-      http.open_timeout = 999  # DEBUG
+      #http_response =  http.start { |h| h.request(request) }
+
+    rescue TimeoutError => err
+       puts "Rescued from timeout (as expected)"
     end
   end
 
