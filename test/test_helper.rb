@@ -257,8 +257,8 @@ module TestHelper
   def bad_hosts
     port = self.blackhole_port
     res = [['bogus_hostname', self.bad_hostname, port]]
-    res << ['unreachable_host', self.unreachable_host, port] if self.unreachable_host
-    res << ['unreachable_route', self.unreachable_route, port] if self.unreachable_route
+    # res << ['unreachable_host', self.unreachable_host, port] if self.unreachable_host
+    # res << ['unreachable_route', self.unreachable_route, port] if self.unreachable_route
     res << ['blackhole_ip', self.blackhole_ip, port] if self.blackhole_ip
     res
   end
