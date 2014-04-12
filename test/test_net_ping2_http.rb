@@ -84,18 +84,18 @@ class TestNetPing2HTTP < Test::Unit::TestCase
     #   assert_equal('Redirect limit exceeded', @ping.exception)
     # end
 
-    test 'ping with get_request=true option' do
-      @ping.get_request = true
-      res = @ping.ping?(@uri)
-      assert_true(res, 'exception = %s' % @ping.exception)
-    end
-
-    test 'ping with http proxy and get_request=true' do
-      ENV['http_proxy'] = 'http://proxymoxie:3128'
-      @ping.get_request = true
-      assert_true(@ping.ping?(@uri))
-      assert_true(@ping.proxied)
-    end
+    # test 'ping with get_request=true option' do
+    #   @ping.get_request = true
+    #   res = @ping.ping?(@uri)
+    #   assert_true(res, 'exception = %s' % @ping.exception)
+    # end
+    #
+    # test 'ping with http proxy and get_request=true' do
+    #   ENV['http_proxy'] = 'http://proxymoxie:3128'
+    #   @ping.get_request = true
+    #   assert_true(@ping.ping?(@uri))
+    #   assert_true(@ping.proxied)
+    # end
 
     # test 'ping with https proxy and get_request=true' do
     #   ENV['http_proxy'] = 'https://proxymoxie:3128'
