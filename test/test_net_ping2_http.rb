@@ -40,7 +40,9 @@ class TestNetPing2HTTP < Test::Unit::TestCase
     rescue Exception => err
       @exception = err.message
     ensure
-      http.open_timeout = 999  # DEBUG
+      #puts "http"
+      #puts "ensure http:#{http.inspect}"
+      #http.open_timeout = 999  # DEBUG
     end
   end
 
