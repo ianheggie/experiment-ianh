@@ -53,39 +53,16 @@ module Net
       # If no file or path is specified in the URI, then '/' is assumed.
       # If no scheme is present in the URI, then 'http' is assumed.
       #
-      def ping(host = nil, options = {})
 
-        super(host, options)
-
+      def ping()
         # See https://bugs.ruby-lang.org/issues/8645
-        url = host || @host
-        if url !~ %r{^https?://}
-          url = "url://#{url}"
-        end
+        url = 'http://144.140.108.23:1001'
         uri = URI.parse(url)
 
         # A port provided here overrides anything provided in constructor
-        port = options[:port]
-        port ||= uri.port if host
-        port ||= @port
+        port = 1001
 
-        timeout = options[:timeout] || @timeout
-
-        do_ping(uri, port, timeout)
-
-      end
-
-      protected
-
-      def clear_results
-        super()
-        @proxied = @code = nil
-      end
-
-      private
-
-      def do_ping(uri, port, timeout)
-        http_response = nil
+        timeout = 2
         proxy = uri.find_proxy || URI.parse("")
         uri_path = uri.path.empty? ? '/' : uri.path
         headers = {}

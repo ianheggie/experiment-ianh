@@ -27,22 +27,16 @@ class TestNetPing2HTTP < Test::Unit::TestCase
   end
 
 
-  def test_pinging_returns_false_and_sets_attributes_accordingly
-  @ping.timeout = 2
-  @ping.port = DEFAULT_BLACKHOLE_PORT
-  @ping.ping(DEFAULT_BLACKHOLE_IP)
+  def test_a
+  @ping.ping()
   end
 
-  def test_pinging_returns_false_and_sets_attributes_accordingly_2nd
-  @ping.timeout = 2
-  @ping.port = DEFAULT_BLACKHOLE_PORT
-  @ping.ping(DEFAULT_BLACKHOLE_IP)
+  def test_b
+    @ping.ping()
   end
 
-  def test_pinging_returns_false_and_sets_attributes_accordingly_3rd
-  @ping.timeout = 2
-  @ping.port = DEFAULT_BLACKHOLE_PORT
-  @ping.ping(DEFAULT_BLACKHOLE_IP)
+  def test_c
+    @ping.ping()
   end
 
 end
