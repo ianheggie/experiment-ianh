@@ -16,24 +16,6 @@ class TestNetPing2HTTP < Test::Unit::TestCase
     def setup
       extend TestHelper
       ENV['http_proxy'] = ENV['https_proxy'] = ENV['no_proxy'] = nil
-      # @uri = 'http://www.google.com/index.html'
-      # @bad_gateway = 'http://http502.com'
-      # @uri_https = 'https://encrypted.google.com'
-      # @proxy = 'http://username:password@proxy:3128'
-      # @redirect = 'http://jigsaw.w3.org/HTTP/300/302.html'
-      # FakeWeb.allow_net_connect = allow_net_connect()
-      # FakeWeb.register_uri(:head, 'http://' << LOCALHOST_IP, :body => 'PONG')
-      #
-      # FakeWeb.register_uri(:get, @uri, :body => 'PONG')
-      # FakeWeb.register_uri(:head, @uri, :body => 'PONG')
-      # FakeWeb.register_uri(:head, @uri_https, :body => 'PONG')
-      # FakeWeb.register_uri(:get, @uri_https, :body => 'PONG')
-      # FakeWeb.register_uri(:head, @redirect,
-      #                      :body => 'A REDIRECT',
-      #                      :location => @uri,
-      #                      :status => %w(302 Found))
-      #
-      #
 
       @ping = Net::Ping2::HTTP.new(:timeout => 30, :port => 80)
 
