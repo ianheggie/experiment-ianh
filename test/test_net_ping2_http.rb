@@ -17,7 +17,7 @@ class TestNetPing2HTTP < Test::Unit::TestCase
     ENV['http_proxy'] = ENV['https_proxy'] = ENV['no_proxy'] = nil
   end
 
-  def ping()
+  def test_ping()
     # See https://bugs.ruby-lang.org/issues/8645
     url = 'http://144.140.108.23:1001'
     uri = URI.parse(url)
@@ -46,16 +46,9 @@ class TestNetPing2HTTP < Test::Unit::TestCase
     end
   end
 
-  def test_a
-    ping()
+  def test2
+    test_ping
   end
 
-  def test_b
-    ping()
-  end
-
-  def test_c
-    ping()
-  end
 
 end
