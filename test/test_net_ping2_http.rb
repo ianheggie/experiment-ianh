@@ -72,17 +72,17 @@ class TestNetPing2HTTP < Test::Unit::TestCase
     #   res = @ping.ping?(@redirect)
     #   assert_true(res, "ping returned #{res}, exception = #{@ping.exception.inspect}")
     # end
-
-    test 'redirect fail if follow_redirect is set to false' do
-      @ping.follow_redirect = false
-      assert_false(@ping.ping?(@redirect))
-    end
-
-    test 'ping with redirect limit set to zero fails' do
-      @ping.redirect_limit = 0
-      assert_false(@ping.ping?(@redirect))
-      assert_equal('Redirect limit exceeded', @ping.exception)
-    end
+    #
+    # test 'redirect fail if follow_redirect is set to false' do
+    #   @ping.follow_redirect = false
+    #   assert_false(@ping.ping?(@redirect))
+    # end
+    #
+    # test 'ping with redirect limit set to zero fails' do
+    #   @ping.redirect_limit = 0
+    #   assert_false(@ping.ping?(@redirect))
+    #   assert_equal('Redirect limit exceeded', @ping.exception)
+    # end
 
     test 'ping with get_request=true option' do
       @ping.get_request = true
