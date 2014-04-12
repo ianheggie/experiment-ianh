@@ -5,43 +5,35 @@
 # 'test:http' Rake task.
 #################################################################################
 require File.expand_path('../test_helper.rb', __FILE__)
-require 'fakeweb'
 require 'net/ping2/http'
 
 class TestNetPing2HTTP < Test::Unit::TestCase
   #extend TestHelper
 
-  if Net::Ping2::HTTP.available?
+  def setup
+    extend TestHelper
+    ENV['http_proxy'] = ENV['https_proxy'] = ENV['no_proxy'] = nil
 
-    def setup
-      extend TestHelper
-      ENV['http_proxy'] = ENV['https_proxy'] = ENV['no_proxy'] = nil
-
-      @ping = Net::Ping2::HTTP.new(:timeout => 30, :port => 80)
-
-      @ping = Net::Ping2::HTTP.new()
-      @ping_with_host = Net::Ping2::HTTP.new(:host => LOCALHOST_IP)
-
-    end
-
-    def teardown
-      FakeWeb.clean_registry
-      FakeWeb.allow_net_connect = true
-    end
-
-    check_bad_hosts_behaviour(self.bad_hosts)
-
-
-  else
-    def test_new_raises_exception
-      assert_raise(NotImplementedError) { Net::Ping2::HTTP.new }
-    end
-
-    def tests_are_disabled
-      omit('tests are disabled: ' + Net::Ping2::HTTP.not_available_message)
-    end
-
+    @ping = Net::Ping2::HTTP.new()
   end
 
+
+  def test_pinging_returns_false_and_sets_attributes_accordingly
+  @ping.timeout = 2
+  @ping.port = DEFAULT_BLACKHOLE_PORT
+  @ping.ping(DEFAULT_BLACKHOLE_IP)
+  end
+
+  def test_pinging_returns_false_and_sets_attributes_accordingly_2nd
+  @ping.timeout = 2
+  @ping.port = DEFAULT_BLACKHOLE_PORT
+  @ping.ping(DEFAULT_BLACKHOLE_IP)
+  end
+
+  def test_pinging_returns_false_and_sets_attributes_accordingly_3rd
+  @ping.timeout = 2
+  @ping.port = DEFAULT_BLACKHOLE_PORT
+  @ping.ping(DEFAULT_BLACKHOLE_IP)
+  end
 
 end
