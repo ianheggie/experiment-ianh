@@ -52,14 +52,14 @@ class TestNetPing2HTTP < Test::Unit::TestCase
       FakeWeb.allow_net_connect = true
     end
 
-    check_ping_arguments
-    check_class_methods
-    check_attr_readers :proxied, :code
-    check_attr_accessors :port, :follow_redirect, :redirect_limit, :user_agent, :ssl_verify_mode, :get_request
-    check_defaults :timeout => 5, :proxied => nil, :code => nil, :follow_redirect => true, :redirect_limit => 5,
-                   :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE, :get_request => false, :user_agent => 'net-ping2'
-
-    check_good_host_behaviour
+    # check_ping_arguments
+    # check_class_methods
+    # check_attr_readers :proxied, :code
+    # check_attr_accessors :port, :follow_redirect, :redirect_limit, :user_agent, :ssl_verify_mode, :get_request
+    # check_defaults :timeout => 5, :proxied => nil, :code => nil, :follow_redirect => true, :redirect_limit => 5,
+    #                :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE, :get_request => false, :user_agent => 'net-ping2'
+    #
+    # check_good_host_behaviour
     check_bad_hosts_behaviour(self.bad_hosts)
 
     check_thread_safety
