@@ -7,36 +7,55 @@
 
 require 'test-unit'
 
-LOCALHOST = 'localhost'
-BOGUS_HOST = 'foo.bar.baz'
-
-LOCALHOST_IP = '127.0.0.1'
-DEFAULT_BLACKHOLE_IP = '144.140.108.23' # telstra.com - aussie ISP that drops packets
-DEFAULT_BLACKHOLE_PORT = 1001
-
-require 'net/ping2/http'
+require 'net/http'
+require 'uri'
+require 'open-uri'
 
 class TestNetPing2HTTP < Test::Unit::TestCase
-  #extend TestHelper
 
   def setup
-    #extend TestHelper
     ENV['http_proxy'] = ENV['https_proxy'] = ENV['no_proxy'] = nil
-
-    @ping = Net::Ping2::HTTP.new()
   end
 
+  def ping()
+    # See https://bugs.ruby-lang.org/issues/8645
+    url = 'http://144.140.108.23:1001'
+    uri = URI.parse(url)
+
+    # A port provided here overrides anything provided in constructor
+    port = 1001
+
+    timeout = 2
+    proxy = uri.find_proxy || URI.parse("")
+    uri_path = uri.path.empty? ? '/' : uri.path
+    headers = {}
+    headers["User-Agent"] = 'net-ping2'
+    begin
+      http = Net::HTTP::Proxy(proxy.host, proxy.port, proxy.user, proxy.password).new(uri.host, port)
+      http.read_timeout = timeout
+      http.open_timeout = timeout
+      @proxied = http.proxy?
+      request = Net::HTTP::Head.new(uri_path)
+      http_response = Timeout.timeout(timeout) do
+        http.start { |h| h.request(request) }
+      end
+    rescue Exception => err
+      @exception = err.message
+    ensure
+      http.open_timeout = 999  # DEBUG
+    end
+  end
 
   def test_a
-  @ping.ping()
+    ping()
   end
 
   def test_b
-    @ping.ping()
+    ping()
   end
 
   def test_c
-    @ping.ping()
+    ping()
   end
 
 end
