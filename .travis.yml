@@ -10,7 +10,7 @@ before_install:
 - bundle --version
 bundler_args: --binstubs
 script: 
-- bin/rake test
+- bin/rake test && bin/rake test
 env:
   - LAP=1
   - LAP=2
