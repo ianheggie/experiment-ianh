@@ -33,7 +33,7 @@ class TestNetPing2HTTP < Test::Unit::TestCase
       #http.read_timeout = timeout
       http.open_timeout = timeout
       request = Net::HTTP::Head.new('/')
-      http_response = Timeout.timeout(timeout) do
+      http_response = Timeout.timeout(timeout+1) do
         http.start { |h| h.request(request) }
       end
       #http_response =  http.start { |h| h.request(request) }
